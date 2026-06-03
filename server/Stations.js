@@ -82,11 +82,12 @@ const DUMP_LINK_LIST = [
     new Link("Viale dei Mosaici", "Borgo Sereno", "Blue"),
     // Green Line inverse
     new Link("Fontana Oscura", "Porta Velaria", "Green"),
-    new Link("Torre Cineria", "Fontana Oscura", "Green"),
-    new Link("Campo dell'Eco", "Torre Cineria", "Green"),
+    new Link("Torre Cinerea", "Fontana Oscura", "Green"),
+    new Link("Campo dell'Eco", "Torre Cinerea", "Green"),
     // Yellow Line inverse
-    new Link("Torre Cineria", "Piazza delle Lanterne", "Yellow"),
-    new Link("Viale dei Mosaici", "Torre Cineria", "Yellow"),
+    new Link("Torre Cinerea", "Piazza delle Lanterne", "Yellow"),
+    new Link("Viale dei Mosaici", "Torre Cinerea", "Yellow"),
     new Link("Campo dell'Eco", "Viale dei Mosaici", "Yellow")
 ]
-console.log(Dijkstra_finder(DUMP_STATION_LIST,DUMP_LINK_LIST,new Station("Centrale"),new Station("Campo dell'Eco")))
+//console.log(Dijkstra_finder(DUMP_STATION_LIST,DUMP_LINK_LIST,new Station("Centrale"),new Station("Campo dell'Eco")))
+export { Station, Link, Dijkstra_finder, DUMP_STATION_LIST, DUMP_LINK_LIST }
