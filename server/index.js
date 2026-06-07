@@ -1,7 +1,7 @@
 // imports
 import express from "express";
 import { Link,Station } from "./Stations.js";
-import { AllLinks, AllStations,GetLink,GetStation,AuthUser, SelectRandomStations, } from "./dao.js";
+import { AllLinks,GetRandomEvents, AllStations,GetLink,GetStation,AuthUser, SelectRandomStations, GetHighScore, UpdateRaceRecords} from "./dao.js";
 import passport from "passport"
 import LocalStrategy from "passport-local"
 import session from "express-session";
@@ -53,7 +53,6 @@ app.get("/api/Stations",async (req,res)=>{
     res.status(500).json({error: err.message})
   }
 })
-
 app.get("/api/Links",async (req,res)=>{
   try {
     let result
@@ -66,10 +65,43 @@ app.get("/api/Links",async (req,res)=>{
 })
 
 app.get("/api/RandomStations",isLoggedIn, async (req,res)=>{
-  let result = await SelectRandomStations()
+  try{
+    let result = await SelectRandomStations()
+    res.json(result)
+  } catch(err){
+    res.status(500).json({error: err.message})
+  }
+
+})
+app.get("/api/highscore",isLoggedIn,async (req,res)=>{
+  let result = await GetHighScore(req.user.username)
   res.json(result)
 })
+app.get("/api/getRandomEvents",isLoggedIn,async(req,res)=>{
+  try {
+    const number = req.query.number ? Number(req.query.number) : undefined
+    const result = await GetRandomEvents(number)
+    res.json(result)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+//logout
+app.delete("/api/sessions/current",(req,res)=>{
+  req.logout(()=>{
+    res.end();
+  })
+})
 //post methods
+//login
 app.post("/api/sessions", passport.authenticate("local"), function(req, res) {
   return res.status(201).json(req.user);
 });
+app.post("/api/Register/Race",isLoggedIn,async (req,res)=>{
+  try {
+    await UpdateRaceRecords(req.user.username, req.body.score)
+    res.status(201).json({ message: "Race recorded" })
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+})

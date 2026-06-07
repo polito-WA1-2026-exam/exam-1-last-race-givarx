@@ -10,16 +10,16 @@ function Link(from,to,color){
 }
 
 function Dijkstra_finder(station_list,link_list,start,end){
-     let cost = {}
-     let parent = {}
-     for (let station of station_list){
+    let cost = {}
+    let parent = {}
+    for (let station of station_list){
         cost[station.name] = Infinity
         parent[station.name] = null
-     }
-     cost[start.name] = 0
-     parent[start.name] = start
-     let visited = new Set()
-     while (visited.size < station_list.length){
+    }
+    cost[start.name] = 0
+    parent[start.name] = start
+    let visited = new Set()
+    while (visited.size < station_list.length){
         let current = null
         for(let station of station_list){
             if(!visited.has(station.name) && (current === null || cost[station.name] < cost[current.name])){
@@ -38,7 +38,6 @@ function Dijkstra_finder(station_list,link_list,start,end){
             }
         }
     }
-    console.log(visited.keys())
     if(cost[end.name] === undefined) return -1
     else return cost[end.name]
 }
