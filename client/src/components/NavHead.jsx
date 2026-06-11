@@ -12,7 +12,7 @@ function NavHead(props){
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-             {user.username ? <LogOutButton current={user}></LogOutButton> : <LoginButton doLogin={props.doLogin}/>}
+             {user.username ? <LogOutButton current={user} doLogout={props.doLogout}></LogOutButton> : <LoginButton doLogin={props.doLogin}/>}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
@@ -28,8 +28,13 @@ function LoginButton(props){
   </>)
 }
 function LogOutButton(props){
+  const navigate = useNavigate()
+  const logout = ()=>{
+    props.doLogout()
+    navigate("/")
+  }
   return(<Row className="justify-content-center">
-   <Col sm={5}>{"Signed in as: "+props.current.username }</Col><Col sm={5}> <Button variant="danger"> Log out</Button></Col>
+   <Col sm={5}>{"Signed in as: "+props.current.username }</Col><Col sm={5}> <Button variant="danger" onClick={()=>{logout()}}> Log out</Button></Col>
   </Row>)
 }
 export default NavHead

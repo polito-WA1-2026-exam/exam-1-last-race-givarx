@@ -9,16 +9,28 @@ import NavHead from './components/NavHead';
 function App() {
   const navigate = useNavigate()
   const [user,setUser] = useState({username:undefined})
-  const handleLogin = ()=>{
-    setUser({username:"dummyuser"})
-    navigate("/")
+
+  const handleLogin = (credentials)=>{
+    let name = "dummyuser"
+    let pass = "dummy123"
+    //make the api call remember
+    if(credentials.username === name && pass == credentials.password)
+    {
+      setUser({username:"dummyuser"})
+      navigate("/")
+    }
+    else{
+      console.log("login failed")
+    }
   }
-  
+  const handleLogout= ()=>{
+    setUser({username:undefined})
+  }
   return (
     <UserContext.Provider value={user}>
       <Routes>
         <Route path="/" element={<>
-        <NavHead  doLogin={handleLogin} />
+        <NavHead  doLogout={handleLogout} />
         <Outlet></Outlet>
         </>}>
           <Route index element={<HomePage></HomePage>}></Route>
