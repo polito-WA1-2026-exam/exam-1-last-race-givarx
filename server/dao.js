@@ -104,6 +104,18 @@ function GetHighScore(username){
         })
     })
 }
+
+function GetHighScores(){
+    return new Promise((resolve,reject)=>{
+        let sql = "SELECT MAX(SCORE) AS HIGHSCORE FROM RACES GROUP BY PLAYER"
+    db.all(sql,(err,row)=>{
+            if(err) reject(err)
+            else{
+                resolve(row.map((a)=>({"highscore":a.HIGHSCORE})))
+            }
+        })
+    })
+}
 export function UpdateRaceRecords(username,score){
     return new Promise((resolve,reject)=>{
         let sql = "INSERT  INTO RACES (PLAYER, SCORE) VALUES (?,?)"
