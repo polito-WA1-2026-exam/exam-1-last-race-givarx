@@ -107,11 +107,11 @@ function GetHighScore(username){
 
 function GetHighScores(){
     return new Promise((resolve,reject)=>{
-        let sql = "SELECT MAX(SCORE) AS HIGHSCORE FROM RACES GROUP BY PLAYER"
+        let sql = "SELECT MAX(SCORE) AS HIGHSCORE, PLAYER FROM RACES GROUP BY PLAYER ORDER BY HIGHSCORE DESC"
     db.all(sql,(err,row)=>{
             if(err) reject(err)
             else{
-                resolve(row.map((a)=>({"highscore":a.HIGHSCORE})))
+                resolve(row.map((a)=>({"highscore":a.HIGHSCORE,player:a.PLAYER})))
             }
         })
     })
@@ -151,4 +151,4 @@ console.log(await AuthUser("dummyuser","dummyuser12"))
 console.log(await SelectRandomStations())
 console.log(await GetHighScore("dummyuser"))
 console.log(await GetRandomEvents())
-export {AuthUser,AllLinks,AllStations,GetLink,GetStation,SelectRandomStations,GetHighScore}
+export {AuthUser,AllLinks,AllStations,GetLink,GetStation,SelectRandomStations,GetHighScores}

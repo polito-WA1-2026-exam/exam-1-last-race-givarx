@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import GameLobby from './pages/GameLobby'
 import Map from './components/Map'
+import LeaderBoard from './components/Leaderboard'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import UserContext from "./contexts/UserContext";
 import { useState } from 'react'
@@ -47,6 +48,7 @@ function App() {
           <Route path="GameLobby" element={<GameLobby />} >
           <Route index element={<h1> this is the index element</h1>}></Route>
           <Route path="map" element={<Map />}></Route>
+          <Route path="leaderboard" element={<LeaderBoard></LeaderBoard>} username={user.username}></Route>
           </Route>
         </Route>
     </Routes>

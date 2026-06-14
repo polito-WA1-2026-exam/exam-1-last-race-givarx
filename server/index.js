@@ -2,7 +2,7 @@
 import cors from "cors";
 import express from "express";
 import { Link,Station } from "./Stations.js";
-import { AllLinks,GetRandomEvents, AllStations,GetLink,GetStation,AuthUser, SelectRandomStations, GetHighScore, UpdateRaceRecords} from "./dao.js";
+import { AllLinks,GetRandomEvents, AllStations,GetLink,GetStation,AuthUser, SelectRandomStations, GetHighScores, UpdateRaceRecords} from "./dao.js";
 import passport from "passport"
 import LocalStrategy from "passport-local"
 import session from "express-session";
@@ -76,8 +76,8 @@ app.get("/api/RandomStations",isLoggedIn, async (req,res)=>{
   }
 
 })
-app.get("/api/highscore",isLoggedIn,async (req,res)=>{
-  let result = await GetHighScore(req.user.username)
+app.get("/api/highscores",isLoggedIn,async (req,res)=>{
+  let result = await GetHighScores()
   res.json(result)
 })
 app.get("/api/getRandomEvents",isLoggedIn,async(req,res)=>{

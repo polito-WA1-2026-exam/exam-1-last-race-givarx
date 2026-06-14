@@ -20,4 +20,15 @@ const GetLinks = async ()=>{
         return {error:"internal server error"}
     }
 }
-export {GetLinks,GetStations} 
+
+const GetLeaderBoard= async()=>{
+    const result = await fetch(URL+"/api/highscores",{method:"GET",headers: { "Content-Type": "application/json"}, credentials: 'include'})
+    if(result.ok){
+        return result.json()
+    }
+    else{
+        console.log("internal server errpr")
+        return {error:"internal server error"}
+    }
+}
+export {GetLinks,GetStations,GetLeaderBoard} 

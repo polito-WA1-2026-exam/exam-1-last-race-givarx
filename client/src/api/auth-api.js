@@ -20,7 +20,6 @@ const LogoutUser = async ()=>{
         return true
     }
     return false
-   
 }
 
 
