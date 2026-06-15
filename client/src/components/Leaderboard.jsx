@@ -21,10 +21,10 @@ function LeaderBoard(props){
         }
         fetchData()
     })
-    return <Container>
+    return <Container className="min-vh-100 d-flex flex-column align-items-center border border-2 rounded p-4 shadow-smr bg-light">
         <h1>LeaderBoard</h1>
-        <ListGroup>
-            <ListGroupItem><Row><Col>Player</Col><Col>Highscore</Col></Row></ListGroupItem>
+        <ListGroup style={{minWidth: '70%'}}>
+            <ListGroupItem className="d-flex flex-column"><Row><Col>Player</Col><Col>Highscore</Col></Row></ListGroupItem>
             {LeaderBoard}
         </ListGroup>
         

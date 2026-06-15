@@ -9,6 +9,9 @@ import UserContext from "./contexts/UserContext";
 import { useState } from 'react'
 import NavHead from './components/NavHead';
 import { LoginUser,LogoutUser } from './api/auth-api'
+import Game from './pages/Game'
+import GameForm from './components/GameForm'
+import StartGameComponent from './components/StartGameComponent'
 function App() {
   const navigate = useNavigate()
   const [user,setUser] = useState({username:undefined})
@@ -46,10 +49,13 @@ function App() {
           <Route index element={<HomePage></HomePage>}></Route>
           <Route path="login" element={<LoginPage doLogin={handleLogin}/>} />
           <Route path="GameLobby" element={<GameLobby />} >
-          <Route index element={<h1> this is the index element</h1>}></Route>
+          <Route index element={<StartGameComponent ></StartGameComponent>}></Route>
           <Route path="map" element={<Map />}></Route>
           <Route path="leaderboard" element={<LeaderBoard></LeaderBoard>} username={user.username}></Route>
           </Route>
+        </Route>
+        <Route path="/Game" element={<Game></Game>}>
+          <Route index element={<GameForm></GameForm>}></Route>
         </Route>
     </Routes>
     </UserContext.Provider>

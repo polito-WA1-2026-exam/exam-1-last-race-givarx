@@ -6,7 +6,7 @@ function GameLobby(props){
     const [section,setSection] = useState("")
     const navigate = useNavigate()
     const user = useContext(UserContext)
-    const [activeTab,setActiveTab] = useState("game")
+    const [activeTab,setActiveTab] = useState("")
     useEffect(() => {
         if (!user || !user.username) {
             navigate("/login")

@@ -6,6 +6,9 @@ function Link(from,to,color){
     this.from = from
     this.to = to
     this.color = color
+    this.compareTo = (other) =>{
+        return this.from === other.from && this.to === other.to
+    }
     return this
 }
 
@@ -88,5 +91,13 @@ const DUMP_LINK_LIST = [
     new Link("Viale dei Mosaici", "Torre Cinerea", "Yellow"),
     new Link("Campo dell'Eco", "Viale dei Mosaici", "Yellow")
 ]
+const findLink_pos = (link, link_list) => {
+    for (let i = 0; i < link_list.length; i++) {
+        if (link_list[i].compareTo(link)) {
+            return i
+        }
+    }
+    return -1
+}
 //console.log(Dijkstra_finder(DUMP_STATION_LIST,DUMP_LINK_LIST,new Station("Centrale"),new Station("Campo dell'Eco")))
-export { Station, Link, Dijkstra_finder, DUMP_STATION_LIST, DUMP_LINK_LIST }
+export { Station, Link, Dijkstra_finder, DUMP_STATION_LIST, DUMP_LINK_LIST,findLink_pos }
