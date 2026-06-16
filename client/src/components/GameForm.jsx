@@ -1,21 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Stations from "../components/Stations"
 import { Link,findLink_pos,DUMP_LINK_LIST } from "../models/Stations";
-import { GetLinks } from "../api/game-api";
-import { Form,Button } from "react-bootstrap";
-import {useOutletContext} from "react-router"
+import { GetLinks,GetRandomStations } from "../api/game-api";
+import { Form,Button,ProgressBar,Row,Col } from "react-bootstrap";
+import {useNavigate} from "react-router"
+import LinkContext from "../contexts/LinkContext"
 function GameForm(props){
-    const [links,setLinks] = useState([])
-   const { selectedLinks, setSelectedLinks } = useOutletContext();
-
+  const [links,setLinks] = useState([])
+  const selectedLinks = useContext(LinkContext)
+  const setSelectedLinks = props.selectLinks
+  const {randomStations,setRandomStations} = props.randomStations
+  //tiemr stuff
+  const totalSeconds = 180
+  const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
+  const progress = (secondsLeft / totalSeconds) * 100
+  //side effects
+  const navigate = useNavigate()
     useEffect(()=>{
       async function fetchData(){
         const result = await GetLinks()
         if(!result.error){
           setLinks(result)
         }
+        const stations = await GetRandomStations()
+        if(!stations.error){
+         setRandomStations(stations)
+         console.log(stations)
+        }
       }
       fetchData()
+      const intervalId = setInterval(() => {
+        setSecondsLeft(prev => Math.max(prev - 1, 0))
+      }, 1000)
+      return () => clearInterval(intervalId)
     },[])
     const toggleLink = (linkId) => {
     setSelectedLinks((prev) =>
@@ -24,15 +41,31 @@ function GameForm(props){
         : [...prev, linkId]
     );
   };
-    const handleSubmit = (e)=>{
-      e.preventDefault();
+  useEffect(() => {
+  if (secondsLeft === 0) {
       console.log("submitted")
-      console.log(selectedLinks)
+    console.log(selectedLinks)
+    navigate("/Game/result")
     }
+  }, [secondsLeft])
 
-     return (
-     <>
-     <Stations></Stations>
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    console.log("submitted")
+    console.log(selectedLinks)
+    navigate("/Game/result")
+  }
+
+    return (
+    <>
+    <Stations></Stations>
+    {randomStations?.from && (
+      <Row>
+        <Col>From: {randomStations.from.name}</Col>
+        <Col>To: {randomStations.to.name}</Col>
+      </Row>
+    )}
+    <ProgressBar now={progress} label={`${Math.floor(secondsLeft / 60)}m ${secondsLeft % 60}s`}  style={{minWidth: '70%'}}/>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label>Seleziona i link</Form.Label>
