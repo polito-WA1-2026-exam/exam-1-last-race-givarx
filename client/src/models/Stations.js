@@ -41,7 +41,7 @@ function Dijkstra_finder(station_list,link_list,start,end){
             }
         }
     }
-    if(cost[end.name] === undefined) return -1
+    if (cost[end.name] === undefined || cost[end.name] === Infinity) return -1
     else return cost[end.name]
 }
 
@@ -99,5 +99,36 @@ const findLink_pos = (link, link_list) => {
     }
     return -1
 }
-//console.log(Dijkstra_finder(DUMP_STATION_LIST,DUMP_LINK_LIST,new Station("Centrale"),new Station("Campo dell'Eco")))
-export { Station, Link, Dijkstra_finder, DUMP_STATION_LIST, DUMP_LINK_LIST,findLink_pos }
+
+const VerifyPath = (start, end, selectedLinks)=>{
+if (!selectedLinks.length) return false
+
+  const chosenMap = new Map()
+  for (const link of selectedLinks) {
+    if (chosenMap.has(link.from)) return false
+    chosenMap.set(link.from, link)
+  }
+
+  let current = start
+  const visited = new Set([start])
+  let used = 0
+
+  while (current !== end) {
+    const next = chosenMap.get(current)
+    if (!next) return false
+    if (visited.has(next.to)) return false
+
+    visited.add(next.to)
+    current = next.to
+    used++
+  }
+
+  return used === selectedLinks.length
+}
+const listaprova = [
+    new Link("Campo dell'Eco", "Torre Cinerea", "Green"),
+    new Link("Torre Cinerea", "Fontana Oscura", "Green"),
+    new Link("Fontana Oscura", "Centrale", "Blue")
+]
+console.log(VerifyPath("Campo dell'Eco","Centrale",listaprova))
+export { Station, Link, Dijkstra_finder, DUMP_STATION_LIST, DUMP_LINK_LIST,findLink_pos,VerifyPath }

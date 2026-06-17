@@ -42,4 +42,15 @@ const GetRandomStations = async ()=>{
         return {error:"internal server error"}
     }
 }
-export {GetLinks,GetStations,GetLeaderBoard,GetRandomStations} 
+
+const GetRandomEvents = async (number=1)=>{
+    const result = await fetch(URL+"/api/GetRandomEvents?number="+number,{method:"GET",headers: { "Content-Type": "application/json"}, credentials: 'include'})
+    if(result.ok){
+        return result.json()
+    }
+    else{
+        console.log("internal server error")
+        return {error:"internal server error"}
+    }
+}
+export {GetLinks,GetStations,GetLeaderBoard,GetRandomStations,GetRandomEvents} 

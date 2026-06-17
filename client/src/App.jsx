@@ -13,6 +13,7 @@ import Game from './pages/Game'
 import GameForm from './components/GameForm'
 import StartGameComponent from './components/StartGameComponent'
 import LinkContext from "./contexts/LinkContext"
+import Result from './components/Result'
 function App() {
   const navigate = useNavigate()
   const [user,setUser] = useState({username:undefined})
@@ -62,7 +63,7 @@ function App() {
         <Route path="/Game" element={<Game></Game>}>
           
           <Route index element={<GameForm selectLinks={setSelectedLinks} randomStations={{randomStations, setRandomStations}}></GameForm>}></Route>
-          <Route path="result" element={<p>blank page</p>}></Route>
+          <Route path="result" element={<Result randomStations={randomStations}/>}></Route>
         </Route>
     </Routes>
     </UserContext.Provider>

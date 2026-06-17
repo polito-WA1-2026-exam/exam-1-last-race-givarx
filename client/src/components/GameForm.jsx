@@ -25,7 +25,6 @@ function GameForm(props){
         const stations = await GetRandomStations()
         if(!stations.error){
          setRandomStations(stations)
-         console.log(stations)
         }
       }
       fetchData()
@@ -44,6 +43,11 @@ function GameForm(props){
   useEffect(() => {
   if (secondsLeft === 0) {
       console.log("submitted")
+    
+    const links = selectedLinks.map((value)=>{
+      let ls = value.split("-");
+      return new Link(ls[0],ls[1]);
+    })
     console.log(selectedLinks)
     navigate("/Game/result")
     }
@@ -53,6 +57,11 @@ function GameForm(props){
     e.preventDefault();
     console.log("submitted")
     console.log(selectedLinks)
+    const links = selectedLinks.map((value)=>{
+        let ls = value.split("-");
+        return new Link(ls[0],ls[1]);
+    })
+    setSelectedLinks(links)
     navigate("/Game/result")
   }
 
@@ -71,7 +80,7 @@ function GameForm(props){
         <Form.Label>Seleziona i link</Form.Label>
 
         {links.map((link, index) => {
-          const id = `${link.from}-${link.to}-${index}`
+          const id = `${link.from}-${link.to}`
           const label = `${link.from} → ${link.to} (${link.color})`
 
           return (
