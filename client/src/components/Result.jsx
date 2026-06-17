@@ -2,10 +2,12 @@ import React, { use, useContext, useEffect, useState } from "react";
 import LinkContext from "../contexts/LinkContext";
 import UserContext from "../contexts/UserContext";
 import { GetRandomEvents } from "../api/game-api";
-import {Row,Col,Table} from "react-bootstrap"
+import {Row,Col,Table,Button} from "react-bootstrap"
 import {useNavigate} from "react-router"
 import { Link,VerifyPath } from "../models/Stations";
+import ErrorIcon from "./ErrorIcon";
 import Map from "./Map"
+import Leaderboard from "./Leaderboard"
 function Result(props){
     const user = useContext(UserContext)
     const [events,setEvents] = useState([])
@@ -65,6 +67,7 @@ function Result(props){
     },[result])
     return <>
         <Row><Col><h1>Result: {result}</h1></Col></Row>
+        {result_message!="not-valid" &&
         <Table striped bordered hover variant="primary" data-bs-theme="dark">
             <thead>
                 <tr>
@@ -78,7 +81,11 @@ function Result(props){
                 {resultMap}
             </tbody>
         </Table>
+        }
+        {result_message==="not-valid" && <ErrorIcon variant="danger" message="PATH NOT VALID" CanBeClosed="no"/>}
+        <Button variant="success" size="lg">Go Back to the Game Lobby</Button>
         <Map></Map>
+        <Leaderboard></Leaderboard>
     </>
 }
 

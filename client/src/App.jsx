@@ -26,9 +26,11 @@ function App() {
     {
       setUser({username:response.username})
       navigate("/")
+      return true
     }
     else{
       console.log("login failed")
+      return false
     }
   }
   const handleLogout= async ()=>{
@@ -38,19 +40,17 @@ function App() {
       //logout success
       setUser({username:undefined})
       navigate("/")
+      return true
     }
     else{
-      console.log("internal server error")
+      return false
     }
   }
   return (
     <LinkContext.Provider value={selectedLinks}>
     <UserContext.Provider value={user}>
       <Routes>
-        <Route path="/" element={<>
-        <NavHead  doLogout={handleLogout} />
-        <Outlet></Outlet>
-        </>}>
+        <Route path="/" element={<NavHead  doLogout={handleLogout} />}>
           <Route index element={<HomePage></HomePage>}></Route>
           <Route path="login" element={<LoginPage doLogin={handleLogin}/>} />
           <Route path="GameLobby" element={<GameLobby />} >

@@ -2,10 +2,10 @@ import React from "react";
 import {Navbar,Row,Col,Container,Button} from "react-bootstrap"
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
-import {useNavigate} from "react-router"
+import {useNavigate,Outlet} from "react-router"
 function NavHead(props){
   const user = useContext(UserContext)
-    return(
+    return(<>
         <Navbar className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
         <Navbar.Brand >Last Race</Navbar.Brand>
@@ -17,6 +17,8 @@ function NavHead(props){
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Outlet></Outlet>
+    </>
     )
 }
 function LoginButton(props){
