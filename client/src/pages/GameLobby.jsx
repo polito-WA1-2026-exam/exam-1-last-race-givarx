@@ -25,11 +25,11 @@ function GameLobby(props){
                         <ListGroup.Item  active={section===""} onClick={()=>handlePages("")}>
                             Play
                         </ListGroup.Item>
-                        <ListGroup.Item active={section==="map"} onClick={()=>handlePages("map")}>Full Map</ListGroup.Item>
-                        <ListGroup.Item active={section==="leaderboard"} onClick={()=>handlePages("leaderboard")}>
+                        <ListGroup.Item action active={section==="map"} onClick={()=>handlePages("map")}>Full Map</ListGroup.Item>
+                        <ListGroup.Item action active={section==="leaderboard"} onClick={()=>handlePages("leaderboard")}>
                             Leaderboard
                         </ListGroup.Item>
-                        <ListGroup.Item disabled>Rules</ListGroup.Item>
+                        <ListGroup.Item action active={section==="rules"} onClick={()=>handlePages("rules")}>Rules</ListGroup.Item>
                     </ListGroup>
                 </Col >
                 <Col sm={8}>

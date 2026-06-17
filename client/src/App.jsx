@@ -14,6 +14,7 @@ import GameForm from './components/GameForm'
 import StartGameComponent from './components/StartGameComponent'
 import LinkContext from "./contexts/LinkContext"
 import Result from './components/Result'
+import Rules from './components/Rules'
 function App() {
   const navigate = useNavigate()
   const [user,setUser] = useState({username:undefined})
@@ -57,6 +58,7 @@ function App() {
           <Route index element={<StartGameComponent ></StartGameComponent>}></Route>
           <Route path="map" element={<Map />}></Route>
           <Route path="leaderboard" element={<LeaderBoard></LeaderBoard>} username={user.username}></Route>
+          <Route path="rules" element={<Rules></Rules>}></Route>
           </Route>
         </Route>
         

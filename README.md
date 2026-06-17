@@ -3,9 +3,10 @@
 
 ## React Client Application Routes
 
-- Route `/`: page content and purpose
-- Route `/something/:param`: page content and purpose, param specification
-- ...
+- Route `/`: HomePage With Rules that can be visited by anyone
+- Route `/login`: Login Page
+- Route `/GameLobby`: Main Page for registered users, here you can start a Game
+- Route `/GameLobby/map`: for registered Users Only, here you can see the Full Map
 
 ## API Server
 
