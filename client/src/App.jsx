@@ -60,7 +60,7 @@ function App() {
           </Route>
         </Route>
         
-        <Route path="/Game" element={<Game></Game>}>
+        <Route path="/Game" element={<Game setSelectedLinks={setSelectedLinks}></Game>}>
           
           <Route index element={<GameForm selectLinks={setSelectedLinks} randomStations={{randomStations, setRandomStations}}></GameForm>}></Route>
           <Route path="result" element={<Result randomStations={randomStations}/>}></Route>

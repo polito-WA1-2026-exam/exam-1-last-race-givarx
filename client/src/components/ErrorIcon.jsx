@@ -5,7 +5,7 @@ function ErrorIcon(props) {
     const [closed,setClosed] = useState("no")
     useEffect(()=>{
         if(!props.canBeClosed){
-            setClosed("yes")
+            setClosed(props.canBeClosed)
         }
     },[])
     return (

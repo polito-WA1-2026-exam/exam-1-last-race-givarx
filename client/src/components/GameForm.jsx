@@ -11,7 +11,7 @@ function GameForm(props){
   const setSelectedLinks = props.selectLinks
   const {randomStations,setRandomStations} = props.randomStations
   //tiemr stuff
-  const totalSeconds = 180
+  const totalSeconds = 90
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
   const progress = (secondsLeft / totalSeconds) * 100
   //side effects
@@ -24,7 +24,7 @@ function GameForm(props){
         }
         const stations = await GetRandomStations()
         if(!stations.error){
-         setRandomStations(stations)
+        setRandomStations(stations)
         }
       }
       fetchData()
@@ -57,11 +57,7 @@ function GameForm(props){
     e.preventDefault();
     console.log("submitted")
     console.log(selectedLinks)
-    const links = selectedLinks.map((value)=>{
-        let ls = value.split("-");
-        return new Link(ls[0],ls[1]);
-    })
-    setSelectedLinks(links)
+    
     navigate("/Game/result")
   }
 

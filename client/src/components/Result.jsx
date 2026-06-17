@@ -9,6 +9,7 @@ import ErrorIcon from "./ErrorIcon";
 import Map from "./Map"
 import Leaderboard from "./Leaderboard"
 function Result(props){
+    const navigate = useNavigate()
     const user = useContext(UserContext)
     const [events,setEvents] = useState([])
     const selectedLinks = useContext(LinkContext)
@@ -40,10 +41,14 @@ function Result(props){
         const randomStations = props.randomStations
         Events()
         console.log("io sto qua"+events.length)
+
         if(events.length>0 && statusEvents===true){
-            console.log("io so entrato")
-            console.log(selectedLinks)
-                if (!VerifyPath(randomStations.from.name,randomStations.to.name,selectedLinks)) {
+            const links = selectedLinks.map((value)=>{
+                    let ls = value.split("-");
+                    return new Link(ls[0],ls[1]);
+                })
+            console.log(links)
+                if (!VerifyPath(randomStations.from.name,randomStations.to.name,links)) {
                 console.log("not valid path")
                 return
             }
@@ -52,7 +57,7 @@ function Result(props){
             const map = []
             let sum = 20
             for (let i = 0; i < events.length; i++) {
-                map.push([selectedLinks[i], events[i]]) 
+                map.push([links[i], events[i]]) 
                 sum += events[i].buff
             }
             setResult(sum)
@@ -82,8 +87,8 @@ function Result(props){
             </tbody>
         </Table>
         }
-        {result_message==="not-valid" && <ErrorIcon variant="danger" message="PATH NOT VALID" CanBeClosed="no"/>}
-        <Button variant="success" size="lg">Go Back to the Game Lobby</Button>
+        {result_message==="not-valid" && <ErrorIcon variant="danger" message="PATH NOT VALID" canBeClosed="no"/>}
+        <Button variant="success" size="lg" onClick={()=>navigate("/GameLobby")}>Go Back to the Game Lobby</Button>
         <Map></Map>
         <Leaderboard></Leaderboard>
     </>

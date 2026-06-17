@@ -16,7 +16,10 @@ function Game(props){
             navigate("/login")
         }
     })
-   
+    //reset selectedLInks
+    useEffect(()=>{
+        props.setSelectedLinks([])
+    },[])
     return (
         <Container className="min-vh-100 d-flex flex-column align-items-center border border-2 rounded p-4 shadow-smr bg-light">
             
