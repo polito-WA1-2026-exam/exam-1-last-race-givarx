@@ -1,7 +1,7 @@
 import React, { use, useContext, useEffect, useState } from "react";
 import LinkContext from "../contexts/LinkContext";
 import UserContext from "../contexts/UserContext";
-import { GetRandomEvents } from "../api/game-api";
+import { GetRandomEvents,PostScore } from "../api/game-api";
 import {Row,Col,Table,Button} from "react-bootstrap"
 import {useNavigate} from "react-router"
 import { Link,VerifyPath } from "../models/Stations";
@@ -16,12 +16,18 @@ function Result(props){
     const [result,setResult] = useState(0)
     const [result_message,setResultMessage] = useState("not-valid")
     const [resultMap,setResultMap] = useState(null)
-    const [statusEvents,setStausEvents] = useState(false)
+    const [statusEvents,setStatusEvents] = useState(false)
+    const UploadResult = async ()=>{
+        const res = await PostScore(user.username,result)
+        if(res.error){
+            console.log("failed uploading result" )
+        }
+    }
     const Events = async ()=>{
         const result = await GetRandomEvents(selectedLinks.length)
         if(!result.error){
           setEvents(result)
-          setStausEvents(true)
+          setStatusEvents(true)
         }
     }
     const mapResult = (res)=>{
@@ -88,7 +94,7 @@ function Result(props){
         </Table>
         }
         {result_message==="not-valid" && <ErrorIcon variant="danger" message="PATH NOT VALID" canBeClosed="no"/>}
-        <Button variant="success" size="lg" onClick={()=>navigate("/GameLobby")}>Go Back to the Game Lobby</Button>
+        <Button variant="success" size="lg" onClick={()=>{UploadResult(); navigate("/GameLobby")}}>Go Back to the Game Lobby</Button>
         <Map></Map>
         <Leaderboard></Leaderboard>
     </>

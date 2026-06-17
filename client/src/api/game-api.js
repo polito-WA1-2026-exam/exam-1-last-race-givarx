@@ -53,4 +53,18 @@ const GetRandomEvents = async (number=1)=>{
         return {error:"internal server error"}
     }
 }
-export {GetLinks,GetStations,GetLeaderBoard,GetRandomStations,GetRandomEvents} 
+const PostScore = async (username,score) =>{
+    const body = {
+        player:username,
+        score:score
+    }
+    const result = await fetch(URL+"/api/Register/Race",{method:"POST",headers: { "Content-Type": "application/json"}, credentials: 'include',body:JSON.stringify(body)})
+    if(result.ok){
+        return result.json()
+    }
+    else{
+        console.log("internal server error")
+        return {error:"internal server error"}
+    }
+}
+export {GetLinks,GetStations,GetLeaderBoard,GetRandomStations,GetRandomEvents,PostScore} 
