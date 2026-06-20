@@ -65,7 +65,7 @@ function LoginPage(props) {
 	  </Row>
     </Form>
                 </Row>
-				
+				 
 			</Container>
 	)
 }
