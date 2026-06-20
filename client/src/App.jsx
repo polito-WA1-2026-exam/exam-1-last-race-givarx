@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet, useNavigate } from 'react-router'
+import { Routes, Route, useNavigate } from 'react-router'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import GameLobby from './pages/GameLobby'
@@ -18,7 +18,6 @@ import Rules from './components/Rules'
 function App() {
   const navigate = useNavigate()
   const [user,setUser] = useState({username:undefined})
-  const [LogInInfo,setLogInInfo] = useState(null)
   const [selectedLinks,setSelectedLinks] = useState([])
   const [randomStations,setRandomStations] = useState([])
   const handleLogin = async (credentials)=>{

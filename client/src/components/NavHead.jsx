@@ -1,15 +1,15 @@
 import React from "react";
-import {Navbar,Row,Col,Container,Button,Image} from "react-bootstrap"
+import {Navbar,Row,Col,Container,Button} from "react-bootstrap"
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
 import {useNavigate,Outlet,Link} from "react-router"
-import Logo from "../assets/Logo.png"
 function NavHead(props){
   const user = useContext(UserContext)
+  
     return(<>
         <Navbar className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand ><Link to={"/"}>Last Race</Link></Navbar.Brand>
+        <Navbar.Brand ><h1><Link to={"/"} >Last Race</Link></h1></Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
@@ -18,7 +18,7 @@ function NavHead(props){
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    <Outlet></Outlet>
+    <Outlet ></Outlet>
     </>
     )
 }

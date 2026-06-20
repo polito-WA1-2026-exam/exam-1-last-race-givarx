@@ -6,8 +6,11 @@ import {useNavigate} from "react-router"
 import ErrorIcon from "../components/ErrorIcon";
 function LoginPage(props) {
 	const user = useContext(UserContext)
+	const [username,setUsername] = useState("")
+	const [password,setPassword] = useState("")
 	const navigate = useNavigate()
 	const [errorState,SetErrorState] = useState(false)
+	//used by  ErrorIcon to close itself
 	const updateError = ()=>{
 		if(errorState) SetErrorState(false)
 		else SetErrorState(true)
@@ -16,8 +19,8 @@ function LoginPage(props) {
 		e.preventDefault()
 		const formData = new FormData(e.target)
 		const data = {
-			username: formData.get('username'),
-			password: formData.get('password'),
+			username: username,
+			password: password
 		}
 		const success = await props.doLogin(data)
 		if(success === false){
@@ -26,6 +29,13 @@ function LoginPage(props) {
 			SetErrorState(false)
 		}
 	}
+
+	const  handleChangeUsername = (e)=>{
+		setUsername(e.target.value)
+	}
+	const  handleChangePassword = (e)=>{
+		setPassword(e.target.value)
+	}
 	return (
 		<Container className="min-vh-100 d-flex flex-column align-items-center border border-2 rounded p-4 shadow-smr bg-light" style={{ maxWidth: '700px' }}>
 				<Row>{errorState && <ErrorIcon variant="danger" message="Invalid Credentials" close={updateError}></ErrorIcon>}</Row>
@@ -33,12 +43,12 @@ function LoginPage(props) {
 					<Form onSubmit={(e)=>{ e.preventDefault(); handleSubmit(e) }}>
       <Form.Group className="mb-3" controlId="formUsernamre">
         <Form.Label>Username</Form.Label>
-        <Form.Control type="text" name="username" placeholder="Example: dummyuser" />
+        <Form.Control type="text" name="username" value={username} onChange={handleChangeUsername} placeholder="Example: dummyuser" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" name="password" placeholder="Example: dummy123" />
+        <Form.Control type="password" name="password"  value={password}  onChange={handleChangePassword} placeholder="Example: dummy123" />
       </Form.Group>
 	  <Row>
 		<Col sm={2}>
@@ -55,6 +65,7 @@ function LoginPage(props) {
 	  </Row>
     </Form>
                 </Row>
+				
 			</Container>
 	)
 }
