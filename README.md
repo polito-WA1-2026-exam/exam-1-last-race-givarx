@@ -16,28 +16,30 @@
 
 - POST `/api/session`
   - is the api login post method
-  - the browser sends through the body username and passowrd
-  - the systsem vaildates data and if positive authorizes the browser starting a session
+  - the browser sends through the body username and password
+  - the system validates data and if positive authorizes the browser starting a session
 - DELETE `/api/session/current/logout`
   - deletes the session data
 - GET `/api/Stations`
-  - requests a station from the server, if you dont specify parameters you get all stations
-  - response body content: contains the requeste station/s
-  -doesnt need auth(for now)
+  - requests a station from the server, if you don't specify what station you want you get all stations
+  - response body content: contains the requested station/s
+  - needs authentication
 - POST `/api/Links`
-  - requests a link from the server, if you dont specify parameters you get all stations
-  - response body content: contains the requeste link/s
-  -doesnt need auth(for now)
+  - requests a link from the server, if you don't specify parameters you get all links
+  - response body content: contains the requested link/s
+  - needs authentication
 - GET `/api/RandomStations`
   - requests 2 random stations with distance between them of at least 3 links
   - needs to be logged in
 - GET `/api/highscores`
-  - request the list of the highscores of all players
+  - requests the list of high scores of all players
 - GET `/api/GetRandomEvents`
-  - retrieve a certain number of events, if not specified it retrieves 1 event
+  - retrieves a certain number of events, if not specified it retrieves 1 event
   - header params: number
+  - needs to be logged in
+  
 - POST `/api/Register/Race`
-  - send the the score of the race
+  - sends the score of the race
 
 ## Database Tables
 

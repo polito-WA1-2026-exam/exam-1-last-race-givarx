@@ -91,7 +91,7 @@ function GameForm(props){
           );
         })}
       </Form.Group>
-      <Button type="submit">Conferma</Button>
+      <Button type="submit">Submit Your Path!</Button>
     </Form>
     </>
   )
